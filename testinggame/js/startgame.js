@@ -7,9 +7,9 @@ import { createFrontCards, duplicatedArray } from "./utils.js";
 export const startGame = (difficult) => {
   let firstCard = null;
   let secondCard = null;
-  let clicable = true;
+  let clickable = true;
 
-  const gameSection = document.querySelector(".game__section_cards");
+  const gameSection = document.querySelector(".game__section_cards"); // игровое поле
   const gameCardList = document.createElement("div"); // список карт
   gameCardList.classList.add("game__card_list");
 
@@ -26,7 +26,7 @@ export const startGame = (difficult) => {
   //console.log(duplicatedCardsIcons);
 
   duplicatedCardsIcons.forEach((icon) =>
-    gameCardList.append(createGameCard("shirt", icon)) //
+    gameCardList.append(createGameCard("shirt", icon)) //1 - название деф иконки, 2 - иконка раскрытой карты из массива
   );
 
   gameSection.append(gameCardList, restartButton);
@@ -34,25 +34,22 @@ export const startGame = (difficult) => {
   const cards = document.querySelectorAll(".game__card");
   cards.forEach((card, index) => { //условия при переворачивании карт
     card.addEventListener("click", () => {
-      if (clicable === true && !card.classList.contains("successfully")) {
+      if (clickable === true && !card.classList.contains("successfully")) {
         card.classList.add("flip");
       }
       if (firstCard === null) {
-        firstCard = index;
+        firstCard = index; // приравниваю к индексу карты на которую кликнули
       } else {
         if (index !== firstCard) {
           secondCard = index;
-          clicable = false;
+          clickable = false; // запрещаем разворот более 2х карт
         }
       }
       if (
-        firstCard !== null &&
-        secondCard !== null &&
-        firstCard !== secondCard
+        firstCard !== null && secondCard !== null &&firstCard !== secondCard
       ) {
         if (
-          cards[firstCard].firstElementChild.className ===
-          cards[secondCard].firstElementChild.className
+          cards[firstCard].firstElementChild.className === cards[secondCard].firstElementChild.className
         ) {
           setTimeout(() => {
             cards[firstCard].classList.add("successfully");
@@ -60,7 +57,7 @@ export const startGame = (difficult) => {
 
             firstCard = null;
             secondCard = null;
-            clicable = true;
+            clickable = true;
           }, 500);
         } else {
           setTimeout(() => {
@@ -69,7 +66,7 @@ export const startGame = (difficult) => {
 
             firstCard = null;
             secondCard = null;
-            clicable = true;
+            clickable = true;
           }, 500);
         };
       };
