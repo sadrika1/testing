@@ -17,16 +17,14 @@ export const shuffleArray = (array) => { // мешанина!
 export const duplicatedArray = (array) =>
   array.reduce((res, current) => res.concat([current, current]), []); // дублируем элементы массива(чтобы было по 2 одинаковх карты)
 
-export const createFrontCards = (initialCunt) => {
-  const cardIcons = ["6", "7", "8", "9", "10", "Q", "K", "J", "A"]; // массив иконок карт(названия)
-
-  switch (initialCunt) {
+export const createFrontCards = (initialDiff, array) => {
+  switch (initialDiff) {
     case 1:
-      return cardIcons.slice(0, 3); // легкий - 6 карт
+      return array.slice(0, 3); // легкий - 6 карт
     case 2:
-      return cardIcons.slice(0, 6); // средний - 12 карт
+      return array.slice(0, 6); // средний - 12 карт
     case 3:
-      return cardIcons.slice(0, 9); // сложный - 18 карт
+      return array; // сложный - 18 карт
     default:
       break;
   }
