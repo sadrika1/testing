@@ -1,6 +1,6 @@
-import { winnerGame } from "./confetti.js";
+//import { winnerGame } from "./confetti.js";
+import { createGameMenu } from "./menu.js";
 import { createGameCard } from "./gamecard.js";
-import { createGameMenu } from "./test.js";
 import { shuffleArray } from "./utils.js";
 import { createFrontCards, duplicatedArray } from "./utils.js";
 
@@ -11,23 +11,22 @@ export const startGame = (difficult) => {
   let secondCard = null;
   let clickable = true;
 
-  const gameSection = document.querySelector(".game__section_cards"); // игровое поле
-  const gameCardList = document.createElement("div"); // список карт
-  gameCardList.classList.add("game__card_list");
-
-  let cardIcons = shuffleArray(initialCardIcons); //перемешиваем изначальный массив
-
-  gameSection.innerHTML = ""; // чистим поле при нажатии кнопки рестарт
-  const restartButton = document.createElement("button"); // добавляем кнопку рестарта
+  const restartButton = document.createElement("button"); 
   restartButton.textContent = "Начать заново";
   restartButton.classList.add("restart__button");
   restartButton.addEventListener("click", createGameMenu);
 
-  cardIcons = createFrontCards(difficult, cardIcons); // вырезаем нужное количество карт, учитывая выбранную сложность
-  let duplicatedCardsIcons = duplicatedArray(cardIcons); // дублируем массив
-  duplicatedCardsIcons = shuffleArray(duplicatedCardsIcons); // еще раз перемешиваем полученный массив, если не перемешать, то карты будут стоять попарно
-  console.log(cardIcons);
-  console.log(duplicatedCardsIcons);
+  const gameSection = document.querySelector(".game__section"); 
+  const gameCardList = document.createElement("div");
+  gameCardList.classList.add("game__card_list");
+
+  let cardIcons = shuffleArray(initialCardIcons); 
+  gameSection.innerHTML = ""; 
+
+  cardIcons = createFrontCards(difficult, cardIcons); 
+  let duplicatedCardsIcons = duplicatedArray(cardIcons); 
+  duplicatedCardsIcons = shuffleArray(duplicatedCardsIcons); 
+  
 
   duplicatedCardsIcons.forEach(
     (icon) => gameCardList.append(createGameCard("shirt", icon)) //1 - название деф иконки, 2 - иконка раскрытой карты из массива
@@ -43,7 +42,7 @@ export const startGame = (difficult) => {
         card.classList.add("flip");
       }
       if (firstCard === null) {
-        firstCard = index; // приравниваю к индексу карты на которую кликнули
+        firstCard = index; 
       } else {
         if (index !== firstCard) {
           secondCard = index;
@@ -78,16 +77,10 @@ export const startGame = (difficult) => {
           }, 500);
         }
       }
-      if (Array.from(cards).every((card) => card.className.includes("flip"))) { // если у всех карт класс flip - показываем сообщение о победе
-        document.querySelector('.winner__confetti').innerHTML = winnerGame;
+      if (Array.from(cards).every((card) => card.className.includes("flip"))) {
+        //document.querySelector(".winner__confetti").innerHTML = winnerGame;
+        alert("Вы победили!")
       }
     });
   });
 };
-
-    
-  
-
-    
-  
-

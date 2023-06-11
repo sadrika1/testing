@@ -1,6 +1,6 @@
-import { createGameMenu } from "./test.js"
+import { createGameMenu } from "./menu.js";
 
 const cardsApp = () => {
-    createGameMenu();
-}
+  createGameMenu();
+};
 cardsApp();

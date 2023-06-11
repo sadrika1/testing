@@ -16,41 +16,52 @@ body {
   font-family: "StratosSkyeng";
 }
 
+
+.header {
+  margin-bottom: 150px;
+}
+
+.game__section_box {
+  background: #C2F5FF;
+  border-radius: 12px;
+  width: 480px;
+  height: 459px;
+  text-align: center;
+  margin: auto;
+}
+
 .game__section_cards {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  width: 480px;
+  height: 459px;
+  margin-top: 158px;
 }
 
 .game__section_title {
-  margin: 0;
-  margin-bottom: 15px;
+  font-size: 40px;
+  line-height: 48px;
   text-align: center;
-  color: #fff;
+  font-feature-settings: 'pnum'on, 'lnum'on;
+
+  color: #004980;
+
+  padding-top: 44px;
+  padding-bottom: 50px;
 }
 
-.game__section_button,
-.restart__button {
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
+.game__section_button {
+  width: 98px;
+  height: 98px;
+  background: #FFFFFF;
+  border-radius: 12px;
   border: none;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  color: #222;
-  transition: background-color .3s ease-in-out, color .3s ease-in-out;
-}
 
-.game__section_button:not(:last-child) {
-  margin-bottom: 10px;
-}
+  font-size: 64px;
+  line-height: 72px;
+  color: #0080C1;
 
-.game__section_button,
-.restart__button {
-  padding: 15px 20px;
-  background-color: #5dc6ff;
+  margin-right: 25px;
+  cursor: pointer;
 }
 
 .game__section_button:hover {
@@ -60,10 +71,12 @@ body {
 }
 
 .game__card_list {
-  max-width: 1024px;
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  width: 714px;
+  margin: auto;
 }
 
 .game__card {
@@ -77,6 +90,7 @@ body {
   border-radius: 5px;
   transition: all 0.2s linear;
   margin: 1%;
+  margin-bottom: 20px;
 }
 
 
@@ -108,4 +122,24 @@ body {
 
 .game__card:hover {
   background: #d1d1c0;
+}
+
+.restart__button {
+  width: 246px;
+  height: 50px;
+  background: #7AC100;
+  border-radius: 12px;
+  border: none;
+
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+  font-feature-settings: 'pnum'on, 'lnum'on;
+
+  color: #FFFFFF;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
 }
