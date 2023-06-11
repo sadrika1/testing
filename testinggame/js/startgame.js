@@ -1,48 +1,52 @@
-import { winnerGame } from "./confetti.js";
+//import { winnerGame } from "./confetti.js";
+import { createGameMenu } from "./menu.js";
 import { createGameCard } from "./gamecard.js";
-import { createGameMenu } from "./test.js";
 import { shuffleArray } from "./utils.js";
 import { createFrontCards, duplicatedArray } from "./utils.js";
+
+const initialCardIcons = ["6", "7", "8", "9", "10", "Q", "K", "J", "A"]; // todo: реализовать иконки перевернутых карт через массив
 
 export const startGame = (difficult) => {
   let firstCard = null;
   let secondCard = null;
-  let clicable = true;
+  let clickable = true;
 
-  const gameSection = document.querySelector(".game__section_cards");
-  const gameCardList = document.createElement("div"); // список карт
-  gameCardList.classList.add("game__card_list");
-
-  const cardIcons = createFrontCards(difficult);
-  const duplicatedCardsIcons = duplicatedArray(cardIcons); // повтор карт
-
-  gameSection.innerHTML = ""; // чистим поле при нажатии кнопки рестарт
-  const restartButton = document.createElement("button"); // добавляем кнопку рестарта
+  const restartButton = document.createElement("button"); 
   restartButton.textContent = "Начать заново";
   restartButton.classList.add("restart__button");
   restartButton.addEventListener("click", createGameMenu);
 
-  shuffleArray(duplicatedCardsIcons); // перемешанный массив
-  //console.log(duplicatedCardsIcons);
+  const gameSection = document.querySelector(".game__section"); 
+  const gameCardList = document.createElement("div");
+  gameCardList.classList.add("game__card_list");
 
-  duplicatedCardsIcons.forEach((icon) =>
-    gameCardList.append(createGameCard("shirt", icon)) //
+  let cardIcons = shuffleArray(initialCardIcons); 
+  gameSection.innerHTML = ""; 
+
+  cardIcons = createFrontCards(difficult, cardIcons); 
+  let duplicatedCardsIcons = duplicatedArray(cardIcons); 
+  duplicatedCardsIcons = shuffleArray(duplicatedCardsIcons); 
+  
+
+  duplicatedCardsIcons.forEach(
+    (icon) => gameCardList.append(createGameCard("shirt", icon)) //1 - название деф иконки, 2 - иконка раскрытой карты из массива
   );
 
   gameSection.append(gameCardList, restartButton);
 
   const cards = document.querySelectorAll(".game__card");
-  cards.forEach((card, index) => { //условия при переворачивании карт
+  cards.forEach((card, index) => {
+    //условия при переворачивании карт
     card.addEventListener("click", () => {
-      if (clicable === true && !card.classList.contains("successfully")) {
+      if (clickable === true && !card.classList.contains("successfully")) {
         card.classList.add("flip");
       }
       if (firstCard === null) {
-        firstCard = index;
+        firstCard = index; 
       } else {
         if (index !== firstCard) {
           secondCard = index;
-          clicable = false;
+          clickable = false; // запрещаем разворот более 2х карт
         }
       }
       if (
@@ -56,26 +60,27 @@ export const startGame = (difficult) => {
         ) {
           setTimeout(() => {
             cards[firstCard].classList.add("successfully");
-            cards[firstCard].classList.add("successfully");
+            cards[secondCard].classList.add("successfully");
 
             firstCard = null;
             secondCard = null;
-            clicable = true;
+            clickable = true;
           }, 500);
         } else {
           setTimeout(() => {
             cards[firstCard].classList.remove("flip");
-            cards[firstCard].classList.remove("flip");
+            cards[secondCard].classList.remove("flip");
 
             firstCard = null;
             secondCard = null;
-            clicable = true;
+            clickable = true;
           }, 500);
-        };
-      };
-      if (Array.from(cards).every(card => card.className.includes('flip'))) {
-        winnerGame();
-    }
+        }
+      }
+      if (Array.from(cards).every((card) => card.className.includes("flip"))) {
+        //document.querySelector(".winner__confetti").innerHTML = winnerGame;
+        alert("Вы победили!")
+      }
     });
   });
 };
